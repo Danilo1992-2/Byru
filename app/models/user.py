@@ -11,4 +11,5 @@ class User(Base):
     user: str = Column(String(50))
     create_at: Date = Column(Date())
     password: str = Column(String(50))
-    deposit = relationship('deposit', back_populates='user')
+    deposit = relationship('Deposit', back_populates='user', uselist=False)
+    withdraw = relationship('Withdraw', back_populates='user')

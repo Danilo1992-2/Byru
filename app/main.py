@@ -12,6 +12,9 @@ app = FastAPI()
 
 
 app.include_router(user.router, prefix="/users", tags=["users"])
+app.include_router(user.router, prefix="/deposits", tags=["deposits"])
+app.include_router(user.router, prefix="/withdraw", tags=["withdraw"])
+
 
 if __name__ == "__main__":
     import uvicorn

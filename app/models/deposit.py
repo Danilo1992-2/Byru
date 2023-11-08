@@ -9,6 +9,5 @@ class Deposit(Base):
     value: float = Column(Float())
     createat: Date = Column(Date())
     month: int = Column(Integer())
-    user_id: int = Column(Integer())
-    user_id: int = Column(Integer(), ForeignKey('user.id'))
-    user = relationship('user', back_populates='deposit')
+    user_id: int = Column(Integer, ForeignKey('user.id'))
+    user = relationship('User', back_populates='deposit', uselist=False)
