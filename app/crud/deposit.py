@@ -4,7 +4,8 @@ from models.deposit import Deposit
 
 
 def get_deposits(db: Session, user_id: int):
-    return db.query(Deposit).filter(Deposit.user_id == user_id)
+    query = db.query(Deposit).filter(Deposit.user_id == user_id).all()
+    return query
 
 
 def add_deposit(db: Session, user_id: int, value: float, description: str):

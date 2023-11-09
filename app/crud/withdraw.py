@@ -4,7 +4,7 @@ from models.withdraw import Withdraw
 
 
 def get_withdraw(db: Session, user_id: int):
-    return db.query(Withdraw).filter(Withdraw.user_id == user_id)
+    return db.query(Withdraw).filter(Withdraw.user_id == user_id).all()
 
 
 def add_withdraw(db: Session, user_id: int, value: float, description: str):
