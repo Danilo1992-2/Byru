@@ -2,7 +2,6 @@ from fastapi import APIRouter, Depends, HTTPException
 from db.sessions import get_db
 from contracts.user_contracts import NewUserContract
 from models.user import User
-from models.deposit import Deposit
 from sqlalchemy.orm import Session
 from crud.user import get_user, create_user
 

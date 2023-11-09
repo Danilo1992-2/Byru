@@ -5,6 +5,8 @@ from models.user import User
 from models.deposit import Deposit
 from models.withdraw import Withdraw
 from routers import user
+from routers import withdraw
+from routers import deposit
 
 Base.metadata.create_all(bind=engine)
 
@@ -12,8 +14,8 @@ app = FastAPI()
 
 
 app.include_router(user.router, prefix="/users", tags=["users"])
-app.include_router(user.router, prefix="/deposits", tags=["deposits"])
-app.include_router(user.router, prefix="/withdraw", tags=["withdraw"])
+app.include_router(deposit.router, prefix="/deposits", tags=["deposits"])
+app.include_router(withdraw.router, prefix="/withdraw", tags=["withdraw"])
 
 
 if __name__ == "__main__":
