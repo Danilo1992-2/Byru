@@ -6,9 +6,12 @@ from sqlalchemy import func
 def get_withdraw(db: Session, user_id: int):
     return db.query(Withdraw).filter(Withdraw.user_id == user_id).all()
 
-def get_withdraw_current_month(db: Session):
-    today = datetime.now().date() 
-    return db.query(Withdraw).filter(func.date(Withdraw.createat) == today).all()
+def get_withdraw_current_month(user_id: int, db: Session):
+    first_day = datetime.now().replace(day=1).date()
+    today = datetime.now().date()
+    query = db.query(Withdraw).filter(Withdraw.createat.between(first_day, today),
+                                        Withdraw.user_id == user_id).all() 
+    return query
 
 def add_withdraw(db: Session, user_id: int, value: float, description: str):
     new_withdraw = Withdraw()

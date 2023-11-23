@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from db.sessions import get_db
 from sqlalchemy.orm import Session
-from contracts.deposit_contracts import NewDepositContract, all_values_current_month
+from contracts.deposit_contracts import NewDepositContract
 from crud.deposit import get_deposits, add_deposit, get_deposits_current_month
 
 
@@ -16,9 +16,9 @@ async def read_all_deposit(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     return deposits
 
-@router.get('/all-deposits-current-moth')
-async def get_total_value_current_month(db: Session = Depends(get_db)):
-    data = get_deposits_current_month(db)
+@router.get("/all-deposits-current-moth/{user_id}")
+async def get_total_value_current_month(user_id: int, db: Session = Depends(get_db)):
+    data = get_deposits_current_month(user_id, db)
     return data
 
 @router.post("/add-deposit", response_model=NewDepositContract)

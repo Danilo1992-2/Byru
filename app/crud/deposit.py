@@ -8,9 +8,12 @@ def get_deposits(db: Session, user_id: int):
     query = db.query(Deposit).filter(Deposit.user_id == user_id).all()
     return query
 
-def get_deposits_current_month(db: Session):
-    today = datetime.now().strftime('%Y-%m-%d')
-    return db.query(Deposit).filter(func.date(Deposit.createat) == today).all()
+def get_deposits_current_month(user_id: int, db: Session):
+    first_day = datetime.now().replace(day=1).date()
+    today = datetime.now().date()
+    query = db.query(Deposit).filter(Deposit.createat.between(first_day, today),
+                                        Deposit.user_id == user_id).all() 
+    return query
 
 def add_deposit(db: Session, user_id: int, value: float, description: str):
     new_deposit = Deposit()

@@ -16,11 +16,11 @@ async def read_all_deposit(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     return deposits
 
-@router.get('/all-deposits-current-moth')
-async def get_total_value_current_month(db: Session = Depends(get_db)):
-     return get_withdraw_current_month(db)
+@router.get('/all-withdrawals-current-moth/{user_id}')
+async def get_total_value_current_month(user_id: int, db: Session = Depends(get_db)):
+     return get_withdraw_current_month(user_id, db)
 
-@router.post("/add-deposit", response_model=NewWithdrawContract)
+@router.post("/add-withdrawal", response_model=NewWithdrawContract)
 async def add_new_withdraw(withdraw_data: NewWithdrawContract,
                            db: Session = Depends(get_db)):
     new_deposit = add_withdraw(db, withdraw_data.user_id, withdraw_data.value,
