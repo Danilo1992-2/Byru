@@ -9,7 +9,7 @@ from crud.user import get_user, create_user
 router = APIRouter()
 
 
-@router.get("/users/{user_id}")
+@router.get("/{user_id}")
 async def read_user(user_id: int, db: Session = Depends(get_db)):
     user = get_user(db, user_id)
     if user is None:
@@ -17,7 +17,7 @@ async def read_user(user_id: int, db: Session = Depends(get_db)):
     return user
 
 
-@router.post("/users/add-user", response_model=NewUserContract)
+@router.post("/add-user", response_model=NewUserContract)
 async def add_user(user_data: NewUserContract, db: Session = Depends(get_db)):
     new_user = User()
     new_user.name = user_data.name
