@@ -13,7 +13,7 @@ router = APIRouter()
 async def read_user(user_id: int, db: Session = Depends(get_db)):
     user = get_user(db, user_id)
     if user is None:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=404, detail="Usuário não encontrado.")
     return user
 
 

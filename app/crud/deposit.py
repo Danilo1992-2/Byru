@@ -15,6 +15,10 @@ def get_deposits_current_month(user_id: int, db: Session):
                                         Deposit.user_id == user_id).all() 
     return query
 
+def delete_deposit_data(db: Session, id_deposit: int):
+    db.query(Deposit).filter(Deposit.id == id_deposit).delete()
+    db.commit()
+
 def add_deposit(db: Session, user_id: int, value: float, description: str):
     new_deposit = Deposit()
     new_deposit.createat = datetime.now()

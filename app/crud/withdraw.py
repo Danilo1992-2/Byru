@@ -13,6 +13,11 @@ def get_withdraw_current_month(user_id: int, db: Session):
                                         Withdraw.user_id == user_id).all() 
     return query
 
+def delete_withdraw(db: Session, id_withdraw: int):
+    db.query(Withdraw).filter(Withdraw.id == id_withdraw).delete()
+    db.commit()
+
+
 def add_withdraw(db: Session, user_id: int, value: float, description: str):
     new_withdraw = Withdraw()
     new_withdraw.createat = datetime.now()
