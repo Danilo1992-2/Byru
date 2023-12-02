@@ -1,0 +1,9 @@
+FROM mysql:latest
+
+ENV MYSQL_ROOT_PASSWORD=shaman
+ENV MYSQL_DATABASE=contash
+ENV MYSQL_USER=app-user
+ENV MYSQL_PASSWORD=shaman
+EXPOSE 3306
+
+

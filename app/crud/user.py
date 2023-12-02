@@ -1,13 +1,14 @@
 from datetime import datetime
 from sqlalchemy.orm import Session
 from models.user import User
+import asyncio
 
 
-def get_user(db: Session, user_id: int):
+async def get_user(db: Session, user_id: int):
     return db.query(User).filter(User.id == user_id).first()
 
 
-def create_user(db: Session, name: str, password: str, user: str,
+async def create_user(db: Session, name: str, password: str, user: str,
                 document: str):
     new_user = User()
     new_user.name = name

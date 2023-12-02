@@ -12,3 +12,4 @@ class Withdraw(Base):
     month: int = Column(Integer())
     user_id: int = Column(Integer(), ForeignKey('user.id'))
     user = relationship('User', back_populates='withdraw', uselist=False)
+    id_expense: int = Column(Integer())

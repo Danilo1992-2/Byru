@@ -11,7 +11,7 @@ router = APIRouter()
 
 @router.get("/{user_id}")
 async def read_user(user_id: int, db: Session = Depends(get_db)):
-    user = get_user(db, user_id)
+    user = await get_user(db, user_id)
     if user is None:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
     return user
@@ -25,6 +25,6 @@ async def add_user(user_data: NewUserContract, db: Session = Depends(get_db)):
     new_user.user = user_data.user
     new_user.password = user_data.password
 
-    return create_user(db, user_data.name, user_data.password,
+    return await create_user(db, user_data.name, user_data.password,
                        user_data.user,
                        user_data.document)
