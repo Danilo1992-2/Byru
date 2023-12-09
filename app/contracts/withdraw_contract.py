@@ -7,6 +7,8 @@ class NewWithdrawContract(BaseModel):
     id_expenses: int
     installments: int = None
     value: float
+    card: bool = False
+    card_turned: bool = False
 
 class all_values_current_month(BaseModel):
     create_at: str

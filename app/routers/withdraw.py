@@ -34,17 +34,26 @@ async def delete_withdrawal(id: int, db: Session = Depends(get_db)):
 @router.post("/add-withdrawal")
 async def add_new_withdraw(withdraw_data: NewWithdrawContract,
                            db: Session = Depends(get_db)):
-    if withdraw_data.installments == None:
+    if withdraw_data.card == False:
         await add_withdraw(db, withdraw_data.user_id, 
                                 withdraw_data.value,
                                 withdraw_data.description,
                                 withdraw_data.id_expenses)
 
     else:
-        for month in range(withdraw_data.installments):
-            await add_withdraw(db, withdraw_data.user_id, withdraw_data.value,
+        if (withdraw_data.card_turned == False):
+            for month in range(withdraw_data.installments):
+                await add_withdraw(db, withdraw_data.user_id, 
+                                   (withdraw_data.value / withdraw_data.installments) ,
                                     withdraw_data.description,
                                     withdraw_data.id_expenses,
-                                    (datetime.datetime.now() + datetime.timedelta( days = month*30) ))
+                                    (datetime.datetime.now() + datetime.timedelta( days = (month + 1)*30) ))
+        
+        for month in range(withdraw_data.installments):
+            await add_withdraw(db, withdraw_data.user_id,
+                                   (withdraw_data.value / withdraw_data.installments),
+                                    f"{withdraw_data.description} [Parcela {month+1}]",
+                                    withdraw_data.id_expenses,
+                                    (datetime.datetime.now() + datetime.timedelta( days = (month + 2)*30) ))
         
     return "OK"
